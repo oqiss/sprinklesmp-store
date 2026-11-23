@@ -112,6 +112,20 @@ img { image-rendering: pixelated; }
 .shard .price__amt { font-size: 13px; line-height: 16px; letter-spacing: .5px; color: #d3d3d3; }
 .shard .price__cur { font-size: 10px; line-height: 16px; color: #77777f; }
 
+/* ---------- crate key cards (reuse the shard card layout) ---------- */
+.grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 960px) { .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .grid--4 { grid-template-columns: minmax(0, 1fr); } }
+.key { padding: 34px 18px 30px; min-width: 0; }
+.key .price { width: 100%; }
+.key:hover { border-color: color-mix(in srgb, var(--key) 55%, transparent); box-shadow: 0 18px 40px -16px color-mix(in srgb, var(--key) 55%, transparent); }
+.key .shard__img { width: 100%; height: 110px; align-items: center; }
+.key .shard__img img { height: auto; width: 170px; max-width: 90%; image-rendering: pixelated; }
+.key__name { color: var(--key); margin: 14px 0 8px; }
+.key__note { font-size: 12px; color: var(--muted); margin: 0 0 22px; }
+.key--best .shard__badge { color: #FFC857; background: rgba(255, 200, 87, .12); }
+.key:not(.key--best) { padding-top: 56px; }
+
 /* ---------- username step ---------- */
 .login { display: flex; justify-content: center; padding: 0 0 100px; }
 .login__card {

@@ -22,6 +22,13 @@
     { id: 7828896, amount: 70000, was: 50000, bonus: 40, price: "99.99" },
   ];
 
+  const KEYS = [
+    { id: 7829853, crate: "common", name: "Common Key", color: "#D9DEE8", price: "0.99", note: "Choose 1 reward" },
+    { id: 7829857, crate: "prime", name: "Prime Key", color: "#7FD8FF", price: "1.99", note: "Choose 1 reward" },
+    { id: 7829859, crate: "crimson", name: "Crimson Key", color: "#FF4D6D", price: "2.99", note: "Choose 1 reward" },
+    { id: 7829850, crate: "spawner", name: "Spawner Key", color: "#FFC857", price: "7.99", note: "Choose 1 spawner stack", best: true },
+  ];
+
   const $ = (s) => document.querySelector(s);
   const fmt = (n) => n.toLocaleString("en-US");
   const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
@@ -52,6 +59,21 @@
     btn.addEventListener("click", () => pick({ id: s.id, label: `${fmt(s.amount)} Shards ($${s.price})` }));
     card.append(btn);
     shards.append(card);
+  }
+
+  const keys = $("#keys");
+  for (const k of KEYS) {
+    const card = el("article", "card shard key" + (k.best ? " key--best" : ""));
+    card.style.setProperty("--key", k.color);
+    card.append(el("div", "shard__badge" + (k.best ? "" : " is-empty"), k.best ? "SPAWNERS" : "&nbsp;"));
+    card.append(el("div", "shard__img key__img", `<img src="key_${k.crate}.png" alt="">`));
+    card.append(el("div", "shard__amount key__name", k.name));
+    card.append(el("div", "key__note", k.note));
+    const btn = el("button", "price", `<span class="price__amt">$${k.price}</span><span class="price__cur">USD</span>`);
+    btn.type = "button";
+    btn.addEventListener("click", () => pick({ id: k.id, label: `${k.name} ($${k.price})` }));
+    card.append(btn);
+    keys.append(card);
   }
 
   // ---------- copy server address ----------
