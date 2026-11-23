@@ -1,0 +1,83 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SprinkleSMP | Store</title>
+  <meta name="description" content="Ranks and shards for SprinkleSMP. Delivered automatically in-game.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <img class="hero__logo" src="logo.png" alt="SprinkleSMP" width="64" height="64">
+      <h1 class="hero__title">Store</h1>
+      <p class="hero__sub">Upgrade your experience on SprinkleSMP</p>
+      <button class="hero__ip" type="button" data-copy="sprinklesmp.net" title="Copy server address">
+        <span>sprinklesmp.net</span>
+        <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </header>
+
+    <div id="notice" class="notice" hidden></div>
+
+    <!-- store view -->
+    <div id="store">
+      <section class="section">
+        <div class="section__head">
+          <h2>Ranks</h2>
+          <span>Pick the rank that suits you.</span>
+        </div>
+        <div class="grid" id="ranks"></div>
+      </section>
+
+      <hr class="divider">
+
+      <section class="section">
+        <div class="section__head">
+          <h2>Shards</h2>
+          <span>Need shards? Grab a one-time pack.</span>
+        </div>
+        <div class="grid" id="shards"></div>
+      </section>
+    </div>
+
+    <!-- username step (shown after picking a package) -->
+    <section id="login" class="login" hidden>
+      <div class="login__card">
+        <h2>Enter your Minecraft Username</h2>
+        <p class="login__for" id="login-for"></p>
+        <div class="login__edition" role="tablist">
+          <button type="button" class="ed is-active" data-edition="java">Java</button>
+          <button type="button" class="ed" data-edition="bedrock">Bedrock</button>
+        </div>
+        <form class="login__row" id="login-form">
+          <input id="username" name="username" autocomplete="off" spellcheck="false" maxlength="32" placeholder="Enter your username" required>
+          <button type="submit" id="continue">Continue <span aria-hidden="true">&rsaquo;</span></button>
+        </form>
+        <p class="login__err" id="login-err" hidden></p>
+        <button type="button" class="login__back" id="login-back">&larr; Back to store</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__brand">sprinklesmp.net</div>
+    <div class="foot__small">Not affiliated with Mojang or Microsoft</div>
+    <nav class="foot__links">
+      <a href="https://checkout.tebex.io/privacy" target="_blank" rel="noopener">Store Privacy Policy</a>
+      <a href="mailto:support@sprinklesmp.net">Support</a>
+      <a href="https://checkout.tebex.io/terms" target="_blank" rel="noopener">Terms of Service</a>
+      <a href="https://checkout.tebex.io/impressum" target="_blank" rel="noopener">Impressum</a>
+    </nav>
+    <div class="foot__tebex">Checkout is handled by Tebex Limited, who handle product fulfilment, billing support and refunds.</div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
