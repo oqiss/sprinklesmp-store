@@ -72,6 +72,7 @@ img { image-rendering: pixelated; }
 }
 .rank__stats li:last-child { border-bottom: 0; padding: 0; margin: 0; }
 .rank__stats b { color: #fff; font-weight: 700; font-size: 14px; }
+.rank__stats li.is-off span, .rank__stats li.is-off b { color: #4a4b52; }
 
 .price {
   display: flex; align-items: baseline; justify-content: center; gap: 7px; width: 100%; height: 54px; align-content: center;

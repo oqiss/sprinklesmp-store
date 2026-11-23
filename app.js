@@ -1,4 +1,4 @@
-﻿// SprinkleSMP store: renders the packages, asks for a Minecraft username, then sends the buyer to
+// SprinkleSMP store: renders the packages, asks for a Minecraft username, then sends the buyer to
 // Tebex checkout via the Headless API (basket -> add package -> checkout link).
 (() => {
   const CFG = window.STORE_CONFIG || {};
@@ -7,11 +7,14 @@
   // Package ids/prices mirror the Tebex creator panel. If you change a price there, change it here too.
   const RANKS = [
     { id: 7828879, name: "FROSTED", color: "#C9A7FF", price: "4.99",
-      stats: [["Homes", "9"], ["Auction slots", "45"], ["Order slots", "45"]] },
+      stats: [["Homes", "3"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "✗"],
+              ["/ec /craft /anvil /trash", "✗"], ["1 sprinkle / minute", "✗"]] },
     { id: 7828881, name: "GLAZED", color: "#7FD8FF", price: "9.99",
-      stats: [["Homes", "27"], ["Auction slots", "90"], ["Order slots", "90"]] },
+      stats: [["Homes", "5"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "Iron"],
+              ["/ec /craft /anvil /trash", "✓"], ["1 sprinkle / minute", "✓"]] },
     { id: 7828883, name: "SPRINKLE", color: "#FFC857", price: "14.99",
-      stats: [["Homes", "90"], ["Auction slots", "90"], ["Order slots", "90"]] },
+      stats: [["Homes", "7"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "Diamond"],
+              ["/ec /craft /anvil /trash", "✓"], ["1 sprinkle / minute", "✓"]] },
   ];
   const SHARDS = [
     { id: 7828886, amount: 400, price: "0.99" },
@@ -39,7 +42,7 @@
     const card = el("article", "card rank");
     card.append(el("h3", "rank__name", `<span style="color:${r.color}">${r.name.charAt(0)}${r.name.slice(1).toLowerCase()}</span>`));
     const ul = el("ul", "rank__stats");
-    for (const [k, v] of r.stats) ul.append(el("li", "", `<span>${k}</span><b>${v}</b>`));
+    for (const [k, v] of r.stats) ul.append(el("li", v === "✗" ? "is-off" : "", `<span>${k}</span><b>${v}</b>`));
     card.append(ul);
     const btn = el("button", "price", `<span class="price__amt">$${r.price}</span><span class="price__cur">USD</span><span class="price__per">one-time</span>`);
     btn.type = "button";
@@ -53,10 +56,10 @@
     const card = el("article", "card shard" + (s.bonus ? " shard--bonus" : ""));
     card.append(el("div", "shard__badge" + (s.bonus ? "" : " is-empty"), s.bonus ? `+${s.bonus}%` : "&nbsp;"));
     card.append(el("div", "shard__img", `<img src="shards_${s.amount}.png" alt="">`));
-    card.append(el("div", "shard__amount", (s.was ? `<s>${fmt(s.was)}</s>` : "") + `${fmt(s.amount)} Shards`));
+    card.append(el("div", "shard__amount", (s.was ? `<s>${fmt(s.was)}</s>` : "") + `${fmt(s.amount)} Sprinkles`));
     const btn = el("button", "price", `<span class="price__amt">$${s.price}</span><span class="price__cur">USD</span>`);
     btn.type = "button";
-    btn.addEventListener("click", () => pick({ id: s.id, label: `${fmt(s.amount)} Shards ($${s.price})` }));
+    btn.addEventListener("click", () => pick({ id: s.id, label: `${fmt(s.amount)} Sprinkles ($${s.price})` }));
     card.append(btn);
     shards.append(card);
   }
@@ -88,7 +91,7 @@
   const params = new URLSearchParams(location.search);
   if (params.has("thanks")) {
     const n = $("#notice");
-    n.textContent = "Thanks for supporting SprinkleSMP! Your purchase is delivered automatically in-game (shards arrive next time you're online).";
+    n.textContent = "Thanks for supporting SprinkleSMP! Your purchase is delivered automatically in-game (sprinkles arrive next time you're online).";
     n.hidden = false;
     history.replaceState(null, "", location.pathname);
   }
