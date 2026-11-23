@@ -10,26 +10,16 @@
       stats: [["Homes", "3"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "✗"],
               ["/ec /craft /anvil /trash", "✗"], ["1 sprinkle / minute", "✗"]] },
     { id: 7828881, name: "GLAZED", color: "#7FD8FF", price: "9.99",
-      stats: [["Homes", "5"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "Iron"],
+      stats: [["Homes", "5"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "Diamond PvP"],
               ["/ec /craft /anvil /trash", "✓"], ["1 sprinkle / minute", "✓"]] },
     { id: 7828883, name: "SPRINKLE", color: "#FFC857", price: "14.99",
-      stats: [["Homes", "7"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "Diamond"],
+      stats: [["Homes", "7"], ["/fly at spawn", "✓"], ["/hide", "✓"], ["/kit", "Netherite PvP"],
               ["/ec /craft /anvil /trash", "✓"], ["1 sprinkle / minute", "✓"]] },
   ];
-  const SHARDS = [
-    { id: 7828886, amount: 400, price: "0.99" },
-    { id: 7828887, amount: 2500, price: "4.99" },
-    { id: 7828889, amount: 5500, was: 5000, bonus: 10, price: "9.99" },
-    { id: 7828892, amount: 12000, was: 10000, bonus: 20, price: "19.99" },
-    { id: 7828894, amount: 32000, was: 25000, bonus: 28, price: "49.99" },
-    { id: 7828896, amount: 70000, was: 50000, bonus: 40, price: "99.99" },
-  ];
-
   const KEYS = [
-    { id: 7829853, crate: "common", name: "Common Key", color: "#D9DEE8", price: "0.99", note: "Choose 1 reward" },
     { id: 7829857, crate: "prime", name: "Prime Key", color: "#7FD8FF", price: "1.99", note: "Choose 1 reward" },
     { id: 7829859, crate: "crimson", name: "Crimson Key", color: "#FF4D6D", price: "2.99", note: "Choose 1 reward" },
-    { id: 7829850, crate: "spawner", name: "Spawner Key", color: "#FFC857", price: "7.99", note: "Choose 1 spawner stack", best: true },
+    { id: 7829850, crate: "spawner", name: "Spawner Key", color: "#FFC857", price: "7.99", note: "Choose 5 of any spawner", best: true },
   ];
 
   const $ = (s) => document.querySelector(s);
@@ -44,24 +34,11 @@
     const ul = el("ul", "rank__stats");
     for (const [k, v] of r.stats) ul.append(el("li", v === "✗" ? "is-off" : "", `<span>${k}</span><b>${v}</b>`));
     card.append(ul);
-    const btn = el("button", "price", `<span class="price__amt">$${r.price}</span><span class="price__cur">USD</span><span class="price__per">one-time</span>`);
+    const btn = el("button", "price", `<span class="price__amt">$${r.price}</span><span class="price__cur">USD</span><span class="price__per">/ month</span>`);
     btn.type = "button";
-    btn.addEventListener("click", () => pick({ id: r.id, label: `${r.name} rank ($${r.price})` }));
+    btn.addEventListener("click", () => pick({ id: r.id, label: `${r.name} rank ($${r.price}/month)` }));
     card.append(btn);
     ranks.append(card);
-  }
-
-  const shards = $("#shards");
-  for (const s of SHARDS) {
-    const card = el("article", "card shard" + (s.bonus ? " shard--bonus" : ""));
-    card.append(el("div", "shard__badge" + (s.bonus ? "" : " is-empty"), s.bonus ? `+${s.bonus}%` : "&nbsp;"));
-    card.append(el("div", "shard__img", `<img src="shards_${s.amount}.png" alt="">`));
-    card.append(el("div", "shard__amount", (s.was ? `<s>${fmt(s.was)}</s>` : "") + `${fmt(s.amount)} Sprinkles`));
-    const btn = el("button", "price", `<span class="price__amt">$${s.price}</span><span class="price__cur">USD</span>`);
-    btn.type = "button";
-    btn.addEventListener("click", () => pick({ id: s.id, label: `${fmt(s.amount)} Sprinkles ($${s.price})` }));
-    card.append(btn);
-    shards.append(card);
   }
 
   const keys = $("#keys");
@@ -91,7 +68,7 @@
   const params = new URLSearchParams(location.search);
   if (params.has("thanks")) {
     const n = $("#notice");
-    n.textContent = "Thanks for supporting SprinkleSMP! Your purchase is delivered automatically in-game (sprinkles arrive next time you're online).";
+    n.textContent = "Thanks for supporting SprinkleSMP! Your purchase is delivered automatically in-game (crate keys arrive next time you're online).";
     n.hidden = false;
     history.replaceState(null, "", location.pathname);
   }
