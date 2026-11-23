@@ -30,7 +30,7 @@
   const ranks = $("#ranks");
   for (const r of RANKS) {
     const card = el("article", "card rank");
-    card.append(el("h3", "rank__name", `<span style="color:${r.color}">${r.name}</span>`));
+    card.append(el("h3", "rank__name", `<span style="color:${r.color}">${r.name.charAt(0)}${r.name.slice(1).toLowerCase()}</span>`));
     const ul = el("ul", "rank__stats");
     for (const [k, v] of r.stats) ul.append(el("li", "", `<span>${k}</span><b>${v}</b>`));
     card.append(ul);
@@ -43,7 +43,7 @@
 
   const shards = $("#shards");
   for (const s of SHARDS) {
-    const card = el("article", "card shard");
+    const card = el("article", "card shard" + (s.bonus ? " shard--bonus" : ""));
     card.append(el("div", "shard__badge" + (s.bonus ? "" : " is-empty"), s.bonus ? `+${s.bonus}%` : "&nbsp;"));
     card.append(el("div", "shard__img", `<img src="shards_${s.amount}.png" alt="">`));
     card.append(el("div", "shard__amount", (s.was ? `<s>${fmt(s.was)}</s>` : "") + `${fmt(s.amount)} Shards`));
