@@ -106,7 +106,8 @@
     const username = edition === "bedrock" ? "." + raw.replace(/^\./, "").replace(/ /g, "_") : raw;
     try { localStorage.setItem("sprinkle-user", JSON.stringify({ name: raw, edition })); } catch (_) {}
 
-    if (!CFG.TEBEX_PUBLIC_TOKEN) { location.href = CFG.TEBEX_STORE_URL; return; }
+    // no public token yet: open this package's own page on the Tebex-hosted store
+    if (!CFG.TEBEX_PUBLIC_TOKEN) { location.href = `${CFG.TEBEX_STORE_URL}/package/${chosen.id}`; return; }
 
     go.disabled = true; err.hidden = true;
     try {
